@@ -24,7 +24,7 @@ function App() {
             return count + 1;
           } else
           {
-            return count * 2;
+            return count * 50;
           }
           })}>
           Number is {count}
