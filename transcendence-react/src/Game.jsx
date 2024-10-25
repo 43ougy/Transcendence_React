@@ -5,7 +5,6 @@ const width = 800;
 const height = 400;
 const ratio = width / height;
 let shakeDuration = 10;
-let shakeSpeed = 5;
 
 class Paddle {
     constructor(x, y, width, height, color) {
@@ -26,10 +25,12 @@ class Player {
 }
 
 class Ball {
-    constructor(size, speed, shakeSpeed) {
+    constructor(size, speed, shakeSpeed, maxSpeed) {
         this.size = size;
         this.initialSpeed = speed;
         this.speed = speed;
+        this.shakeSpeed = shakeSpeed;
+        this.maxSpeed = maxSpeed;
         this.x = width / 2;
         this.y = height / 2;
         this.dx = this.speed;
@@ -102,7 +103,7 @@ function Game() {
             , paddle.width
             , paddle.height
             , 'violet'));
-        let ball = new Ball(10, 4, 6);
+        let ball = new Ball(10, 5, 6, 20);
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'w') {
@@ -181,7 +182,8 @@ function Game() {
             ball.y = canvas.height / 2;
             ball.speed = ball.initialSpeed;
             ball.dx = (Math.random() > 0.5 ? 1 : -1) * ball.speed;
-            ball.dy = (Math.random() * 2 - 1) * ball.speed;
+            ball.dy = 0;//(Math.random() * 2 - 1) * ball.speed;
+            // put dy to 0 to test ball speed
         }
 
         const ballMovement = () => {
@@ -202,7 +204,7 @@ function Game() {
             }
         }
 
-        const ballToPaddleCheck = (playerN) => {
+        /*const ballToPaddleCheck = (playerN) => {
             if (playerN === 1)
             {
                 if (ball.x - ball.size < player1.paddle.x + player1.paddle.width &&
@@ -224,7 +226,51 @@ function Game() {
                     triggerImpactEffect();
                 }
             }
-        }
+        }*/
+
+        const ballToPaddleCheck = (playerN) => {
+            let paddle, ballHitY;
+          
+            if (playerN === 1) {
+              paddle = player1.paddle;
+              ballHitY = ball.y - paddle.y;
+              
+              if (ball.x - ball.size < paddle.x + paddle.width && ball.y > paddle.y && ball.y < paddle.y + paddle.height) {
+                ball.dx *= -1.1; // Increase ball speed after bounce
+                if (Math.abs(ball.dx) > ball.maxSpeed)
+                    ball.dx = Math.sign(ball.dx) * ball.maxSpeed
+                
+                // Normalize the hit position: -1 (top), 0 (center), 1 (bottom)
+                let relativeIntersectY = (ballHitY - paddle.height / 2) / (paddle.height / 2);
+                
+                // Adjust ball's dy based on hit location, scale it by a factor (e.g., 4)
+                ball.dy = relativeIntersectY * 4;
+                
+                // Prevent extreme angles
+                if (ball.dy > 5) ball.dy = 5;
+                if (ball.dy < -5) ball.dy = -5;
+          
+                triggerImpactEffect();
+              }
+            } else if (playerN === 2) {
+              paddle = player2.paddle;
+              ballHitY = ball.y - paddle.y;
+          
+              if (ball.x + ball.size > paddle.x && ball.y > paddle.y && ball.y < paddle.y + paddle.height) {
+                ball.dx *= -1.1; // Increase ball speed after bounce
+                if (Math.abs(ball.dx) > ball.maxSpeed)
+                    ball.dx = Math.sign(ball.dx) * ball.maxSpeed
+                
+                let relativeIntersectY = (ballHitY - paddle.height / 2) / (paddle.height / 2);
+                ball.dy = relativeIntersectY * 4;
+                
+                if (ball.dy > 5) ball.dy = 5;
+                if (ball.dy < -5) ball.dy = -5;
+          
+                triggerImpactEffect();
+              }
+            }
+          };
 
         const shakeScreen = () => {
             if (shakeDuration > 0) {
@@ -239,7 +285,7 @@ function Game() {
         }
 
         const triggerImpactEffect = () => {
-            if (Math.abs(ball.dx) >= shakeSpeed) {
+            if (Math.abs(ball.dx) >= ball.shakeSpeed) {
                 shakeDuration = 5;
             }
         }
