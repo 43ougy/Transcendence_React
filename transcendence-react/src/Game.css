@@ -1,5 +1,12 @@
+/*.gameContainer {
+    background-color: blueviolet;
+}*/
+
 #gameCanvas {
     background-color: black;
+    aspect-ratio: 2/1;
+    width: 80%;
+    min-width: 200px;
 }
 
 .is-animated {

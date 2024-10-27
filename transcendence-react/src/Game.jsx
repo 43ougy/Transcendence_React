@@ -3,7 +3,7 @@ import './Game.css'
 
 const width = 800;
 const height = 400;
-const ratio = width / height;
+//const ratio = width / height;
 let shakeDuration = 10;
 
 class Paddle {
@@ -64,18 +64,24 @@ function Game() {
     const handleResize = () => {
         if (!isStarted)
             return ;
-        const ctx = pongCanvas.current.getContext('2d');
+        
+        const pongCanvas = pongCanvas.current;
+
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
 
-        let newHeight = windowHeight / ratio;
-        let newWidth = windowWidth / ratio;
+        const desiredAspectRatio = width / height; // Maintain aspect ratio
 
-        const maxHeight = Math.min(newHeight, height);
-        const maxWidth = Math.min(newWidth, width);
+        let newHeight = windowHeight;
+        let newWidth = newHeight * desiredAspectRatio;
 
-        ctx.canvas.height = maxHeight / ratio;
-        ctx.canvas.width = maxWidth;
+        if (newWidth > windowWidth) {
+            newWidth = windowWidth;
+            newHeight = newWidth / desiredAspectRatio;
+        }
+
+        pongCanvas.width = Math.min(newWidth, width);
+        pongCanvas.height = Math.min(newHeight, height);
     };
 
     useEffect(() => {
@@ -114,9 +120,11 @@ function Game() {
             }
             if (event.key === 'ArrowUp') {
                 player2.paddle.dy = -5;
+                event.preventDefault();
             }
             if (event.key === 'ArrowDown') {
                 player2.paddle.dy = 5;
+                event.preventDefault();
             }
         });
         
@@ -204,30 +212,6 @@ function Game() {
             }
         }
 
-        /*const ballToPaddleCheck = (playerN) => {
-            if (playerN === 1)
-            {
-                if (ball.x - ball.size < player1.paddle.x + player1.paddle.width &&
-                    ball.y > player1.paddle.y &&
-                    ball.y < player1.paddle.y + player1.paddle.height) {
-                    ball.dx *= -1.1;
-                    ball.dy += player1.paddle.dy / 2;
-                    triggerImpactEffect();
-                }
-            }
-            if (playerN === 2)
-            {
-                if (ball.x + ball.size > player2.paddle.x &&
-                    ball.y > player2.paddle.y &&
-                    ball.y < player2.paddle.y + player2.paddle.height)
-                {
-                    ball.dx *= -1.1;
-                    ball.dy += player2.paddle.dy / 2;
-                    triggerImpactEffect();
-                }
-            }
-        }*/
-
         const ballToPaddleCheck = (playerN) => {
             let paddle, ballHitY;
           
@@ -236,17 +220,13 @@ function Game() {
               ballHitY = ball.y - paddle.y;
               
               if (ball.x - ball.size < paddle.x + paddle.width && ball.y > paddle.y && ball.y < paddle.y + paddle.height) {
-                ball.dx *= -1.1; // Increase ball speed after bounce
+                ball.dx *= -1.1;
                 if (Math.abs(ball.dx) > ball.maxSpeed)
                     ball.dx = Math.sign(ball.dx) * ball.maxSpeed
-                
-                // Normalize the hit position: -1 (top), 0 (center), 1 (bottom)
+
                 let relativeIntersectY = (ballHitY - paddle.height / 2) / (paddle.height / 2);
-                
-                // Adjust ball's dy based on hit location, scale it by a factor (e.g., 4)
                 ball.dy = relativeIntersectY * 4;
-                
-                // Prevent extreme angles
+
                 if (ball.dy > 5) ball.dy = 5;
                 if (ball.dy < -5) ball.dy = -5;
           
@@ -257,7 +237,7 @@ function Game() {
               ballHitY = ball.y - paddle.y;
           
               if (ball.x + ball.size > paddle.x && ball.y > paddle.y && ball.y < paddle.y + paddle.height) {
-                ball.dx *= -1.1; // Increase ball speed after bounce
+                ball.dx *= -1.1;
                 if (Math.abs(ball.dx) > ball.maxSpeed)
                     ball.dx = Math.sign(ball.dx) * ball.maxSpeed
                 
@@ -304,7 +284,7 @@ function Game() {
         }
 
         const gameLoop = () => {
-            console.log('in game loop');
+            //console.log('in game loop');
             update();
             draw();
 
@@ -322,7 +302,7 @@ function Game() {
         <>
             {isStarted ?
                 (
-                    <div>
+                    <div className='gameContainer'>
                         <canvas ref={pongCanvas} id='gameCanvas' width={width} height={height}></canvas>
                         <div>
                             <button onClick={() => {setIsStarted(isStarted => !isStarted)}}>Game = {isStarted ? 'On' : 'Off'}</button>
