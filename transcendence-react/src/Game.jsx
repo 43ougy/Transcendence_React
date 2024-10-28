@@ -61,11 +61,10 @@ function Game() {
     }, [isStarted]);
     console.log(`is started2 -> ${isStarted}`);
 
+    //useEffect(() => {}, []);
     const handleResize = () => {
         if (!isStarted)
             return ;
-        
-        const pongCanvas = pongCanvas.current;
 
         const windowHeight = window.innerHeight;
         const windowWidth = window.innerWidth;
