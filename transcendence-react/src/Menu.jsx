@@ -1,21 +1,37 @@
 import './Menu.css'
-
-function GameButton(props) {
-    return (
-        <div className="GameButton">
-            <p>{props.usage}</p>
-            <button>{props.name}</button>
-        </div>
-    );
-}
+import GameOne from './GameCopy.jsx';
+import { useRef, useState } from 'react';
 
 function GameMenu() {
+    const pongMenu = useRef(null);
+    const [gameShow, setGameShow] = useState(false);
+    const [isStarted, setIsStarted] = useState(false);
+    const handleStartClick = () => {
+        setGameShow(true);
+    };
+
+    const launchGame = () => {
+        pongMenu.current.classList.add('menu-animated');
+        pongMenu.current.addEventListener('animationend', () => {
+            setIsStarted(true);
+        })
+    };
+
+    if (gameShow) {
+        launchGame();
+        if (isStarted) {
+            return (
+                <GameOne/>
+            )
+        }
+    }
+    
     return (
-        <div>
-            <h2>THE PONG</h2>
-            <GameButton usage="start the game" name="Start"></GameButton>
-            <GameButton usage="see the option" name="Option"></GameButton>
-            <GameButton usage="quit the game" name="Quit"></GameButton>
+        <div className='menu'>
+            <div ref={pongMenu} className='gameMenu'>
+                <h1 className='gameTitle'>THE PONG</h1>
+                <button className="GameButton" onClick={handleStartClick}>Start</button>
+            </div>
         </div>
     );
 }

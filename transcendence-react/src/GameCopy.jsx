@@ -37,8 +37,7 @@ class Ball {
     }
 }
 
-function Game() {
-    const [isStarted, setIsStarted] = useState(false);
+function GameOne() {
     const [isReady, setIsReady] = useState(false);
     const pongCanvas = useRef(null);
 
@@ -46,22 +45,18 @@ function Game() {
         console.log('yes');
     }
     useEffect(() => {
-        if (isStarted)
+        if (!isReady)
         {
-            console.log(`Animation running -> ${isStarted}`);
             pongCanvas.current.classList.add('is-animated');
             pongCanvas.current.addEventListener('animationend', () => {
                 startGame();
                 setIsReady(true);
             })
         }
-        else
-            setIsReady(false);
-    }, [isStarted]);
-    console.log(`is started2 -> ${isStarted}`);
+    });
 
     const handleResize = () => {
-        if (!isStarted)
+        if (!isReady)
             return ;
 
         const windowHeight = window.innerHeight;
@@ -297,29 +292,13 @@ function Game() {
 
     return (
         <>
-            {isStarted ?
-                (
-                    <div className='gameContainer'>
-                        <div className={isReady ? 'canvasContainer' : ''}>
-                            <canvas ref={pongCanvas} className={isReady ? 'gameCanvas' : 'animateCanvas'} width={width} height={height}></canvas>
-                        </div>
-                        <div>
-                            <button onClick={() => {setIsStarted(isStarted => !isStarted)}}>Game = {isStarted ? 'On' : 'Off'}</button>
-                        </div>
-                    </div>
-                )
-                :
-                (<div>
-                    <h1>
-                        Game Menu
-                    </h1>
-                    <div>
-                        <button onClick={() => {setIsStarted(isStarted => !isStarted)}}>Game = {isStarted ? 'On' : 'Off'}</button>
-                    </div>
-                </div>)
-            }
+            <div className='gameContainer'>
+                <div className={isReady ? 'canvasContainer' : ''}>
+                    <canvas ref={pongCanvas} className={isReady ? 'gameCanvas' : 'animateCanvas'} width={width} height={height}></canvas>
+                </div>
+            </div>
         </>
     )
 }
 
-export default Game
+export default GameOne
