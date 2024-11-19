@@ -19,4 +19,4 @@ function handleMenu() {
     })
 }
 
-handleMenu();
+//handleMenu();
