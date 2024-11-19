@@ -60,12 +60,9 @@ function handleMenu() {
         body.style.backgroundImage='none';
         overlay.style.display = 'none';
         canvas.style.display = 'block';
-        fx.style.display = 'block';
         canvas.classList.add('is-animated');
-        fx.classList.add('is-animated');
         canvas.addEventListener('animationend', () => {
             canvas.classList.remove('is-animated');
-            fx.classList.remove('is-animated');
             startGame();
         })
     })
@@ -76,10 +73,8 @@ handleMenu();
 /* ------------------------------------------------*/
 
 const canvas = document.getElementById('pongCanvas');
-const fx = document.getElementById('fxCanvas');
 const button = document.getElementById('menu');
 const context = canvas.getContext('2d');
-const fxContext = fx.getContext('2d');
 
 // ---------------------------------------------------------//
 
@@ -310,59 +305,15 @@ function draw() {
     drawPoints(textPoint.x, textPoint.y);
 }
 
-function drawFxLine(x, y, width, height) {
-    fxContext.clearRect(0, 0, fx.width, fx.height);
-    fxContext.fillStyle = fxBlock.color;
-    fxContext.shadowBlur = 10;
-    fxContext.shadowColor = fxBlock.color;
-    fxContext.fillRect(x, y, width, height);
-    fxContext.shadowBlur = 0;
-}
-
-let fxPosX = 5;
-let fxPosY = 5;
-let fxWidth = 10;
-let fxHeight = 10;
-
-let fxBlock = {x: fxPosX, y: fxPosY, width: fxWidth, height: fxHeight, color: 'white' }
-
-function fxUpdate() {
-    drawFxLine(fxBlock.x, fxBlock.y, fxBlock.width, fxBlock.height);
-    if (player1.point === player2.point) {
-        fxBlock.color = 'white';
-    }
-    else if (player1.point > player2.point) {
-        fxBlock.color = player1.paddle.color;
-    }
-    else if (player1.point < player2.point) {
-        fxBlock.color = player2.paddle.color;
-    }
-
-    if (fxBlock.x < fx.width - 10 && fxBlock.y === 5){
-        fxBlock.x += 5;
-    }
-    else if (fxBlock.y < fx.height - 10 && fxBlock.x === fx.width - 10){
-        fxBlock.y += 5;
-    }
-    else if (fxBlock.x > 5 && fxBlock.y === fx.height - 10){
-        fxBlock.x -= 5;
-    }
-    else if (fxBlock.y > 5 && fxBlock.x === 5){
-        fxBlock.y -= 5;
-    }
-}
-
 function gameLoop() {
     update();
     draw();
-    fxUpdate();
     if (player1.point === 10 || player2.point === 10)
         return;
     requestAnimationFrame(gameLoop);
 }
 
 canvas.style.display = 'none';
-fx.style.display = 'none';
 
 function startGame() {
     canvas.style.display = 'block';

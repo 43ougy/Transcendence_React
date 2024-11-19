@@ -220,20 +220,6 @@ body:has(.centerMenu:hover) #buttonLogout {
     -webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-2));
 }
 
-/*#buttonStart {
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    color: var(--text-color);
-    overflow: hidden;
-    letter-spacing: 5px;
-    font-weight: bold;
-    border: none;
-    transform: translateZ(50px);
-    background: var(--back-color);
-    transition: .2s ease-in-out;
-}*/
-
 #buttonSolo:active, #buttonMultiplayer:active {
     transition: none;
     background: var(--color-2);
@@ -370,7 +356,7 @@ body:has(.centerMenu:hover) #buttonLogout {
 }
 
 #border:nth-child(2) {
-    z-index: 1;
+    z-index: 3;
     position: absolute;
     top: 0;
     right: 0;
@@ -398,6 +384,10 @@ body:has(.centerMenu:hover) #border:nth-child(2) {
 
 body:has(#buttonLogout:hover) #border:nth-child(1), body:has(#buttonLogout:hover) #border:nth-child(2) {
     width: 5%;
+}
+
+body:has(.btn:hover) #border:nth-child(1), body:has(.btn:hover) #border:nth-child(2) {
+    opacity: 0;
 }
 
 #borderAnim {
@@ -469,11 +459,6 @@ body:has(#buttonLogout:hover) #border:nth-child(1), body:has(#buttonLogout:hover
     border: 2px solid #ffffff;
     box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.5);
     z-index: 1;
-}
-
-#fxCanvas {
-    position: absolute;
-    z-index: 2;
 }
 
 .is-animated {
