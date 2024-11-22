@@ -12,6 +12,9 @@ const backColor = getComputedStyle(root).getPropertyValue('--back-color');
 const color1 = getComputedStyle(root).getPropertyValue('--color-1');
 const color2 = getComputedStyle(root).getPropertyValue('--color-2');
 
+const laser = document.querySelector('.laser');
+const bgaGame = document.querySelector('.bgaGame');
+
 function handleMenu() {
     menu.addEventListener('mouseover', () => {
         menu.style.transition = 'all .5s ease-in-out';
@@ -25,6 +28,15 @@ function handleMenu() {
         menu.style.boxShadow='';
         /*overlay.classList.add('overlay-appear');
         overlay.classList.remove('overlay-disappear');*/
+    })
+
+    laser.addEventListener('click', () => {
+        bgaGame.classList.add('bga');
+        body.classList.add('shake');
+        bgaGame.addEventListener('animationend', () => {
+            bgaGame.classList.remove(bga);
+            body.classList.remove('shake');
+        })
     })
 
     buttons.forEach(btn => {

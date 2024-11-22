@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './Game.css'
+const body = document.body;
 
 const width = 800;
 const height = 400;
@@ -289,6 +290,10 @@ function GameOne() {
             gameLoop();
     }, [isReady]);
     window.addEventListener('resize', handleResize);
+    body.style.background='linear-gradient(violet, orange)';
+    body.style.overflow='hidden';
+    const theCanvas = document.querySelector('.gameContainer');
+    theCanvas.style.marginTop='5%';
 
     return (
         <>

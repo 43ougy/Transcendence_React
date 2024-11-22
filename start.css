@@ -450,6 +450,84 @@ body:has(.btn:hover) #border:nth-child(1), body:has(.btn:hover) #border:nth-chil
     }
 }
 
+.borderGameAnim {
+    z-index: 10;
+    position: absolute;
+    top: 43%;
+    left: 0%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: none;
+}
+
+.borderGameAnim .bgaGame {
+    z-index: 10;
+    transform-origin: 50% 0%;
+    transform: rotate(270deg);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 2px;
+    height: 50px;
+    background: white;
+    box-shadow: 0 0 10px violet,
+                0 0 25px violet,
+                0 0 50px violet;
+}
+
+.bga {
+    animation: bga 5s 1 forwards;
+}
+
+@keyframes bga {
+    0% {
+        height: 50px;
+    }
+    90% {
+        left: 0%;
+        width: 100px;
+        height: 40px;
+    }
+    95% {
+        left: 0%;
+        width: 100px;
+        height: 100vw;
+    }
+    100% {
+        left: 0%;
+        width: 100px;
+        height: 100vw;
+    }
+}
+
+.laser {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    z-index: 10;
+}
+
+.shake {
+    animation: shake .5s 1 forwards;
+    animation-delay: 4.5s;
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: translateX(-1px);
+    }
+    20%, 80% {
+      transform: translateX(2px);
+    }
+    30%, 50%, 70% {
+      transform: translateX(-4px);
+    }
+    40%, 60% {
+      transform: translateX(4px);
+    }
+  }
+
 /* -------------------------------------------*/
 
 #pongCanvas {

@@ -9,27 +9,110 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: var(--back-color-2);
+    /*background: var(--back-color-2);*/
+    background-image: url('Icons/Capture d’écran 2024-11-22 152222.png');
+    background-size: cover;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
+    position: relative;
     overflow: hidden;
 }
 
-/*.container {
-    display: flex;
+.overlay {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(10px);
+}
+
+.paddle1 {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 20px;
+    height: 100px;
+    background: violet;
+    box-shadow: 0 0 10px white,
+                0 0 20px violet,
+                0 0 30px white;
+    animation: paddle1Move 2s ease-in-out infinite;
+}
+
+@keyframes paddle1Move {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: 80%;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+.paddle2 {
+    z-index: 2;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 20px;
+    height: 100px;
+    background: orange;
+    box-shadow: 0 0 10px white,
+                0 0 20px orange,
+                0 0 30px white;
+    animation: paddle2Move 2s ease-in-out infinite;
+}
+
+@keyframes paddle2Move {
+    0% {
+        bottom: 20px;
+    }
+    50% {
+        bottom: 80%;
+    }
+    100% {
+        bottom: 20px;
+    }
+}
+
+.container {
+    /*display: flex;
     justify-content: center;
     align-items: center;
-    background: white;
-}*/
+    background: white;*/
+    z-index: 2;
+    box-shadow: 0 0 10px white;
+}
 
 .centerMenu {
     height: 20rem;
-    background: rgb(14, 14, 14);
+    background: var(--back-color);
     padding: 45px;
+    position: relative;
+}
+
+.img {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    height: 50px;
+    width: 50px;
+    /*background: white;*/
+    background-image: url('Icons/first-ever-computer-game-pong-interface-vector-20338477.png');
+    background-size: cover;
+    transition: .5s;
+    &:hover {
+        transform: scale(1.2);
+    }
 }
 
 .input {
@@ -38,12 +121,15 @@ body {
     align-items: flex-start;
     width: 100%;
 }
+
 input {
     margin-top: 5px;
     margin-bottom: 20px;
-    height: 20px;
-    border-radius: 10px;
-    border: solid 2px black;
+    height: 25px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 2px white;
+    background: none;
     outline: none;
 }
 
