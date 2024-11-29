@@ -1,22 +1,21 @@
-const menu = document.getElementById('menu');
-const buttonMenu = document.querySelector('.menuButton');
-const buttons = document.querySelectorAll('.btn');
-const body = document.body;
-const root = document.documentElement;
-const backColor = getComputedStyle(root).getPropertyValue('--back-color');
-const color1 = getComputedStyle(root).getPropertyValue('--color-1');
-const color2 = getComputedStyle(root).getPropertyValue('--color-2');
+const wrapper = document.querySelector('.wrapper');
+const loginLink = document.querySelector('.login-link');
+const registerLink = document.querySelector('.register-link');
+const btnPopup = document.querySelector('.btnLogin-popup');
+const iconClose = document.querySelector('.icon-close');
 
-function handleMenu() {
-    menu.addEventListener('mouseover', () => {
-        menu.style.transition = 'all .5s ease-in-out';
-        menu.style.background='none';
-    })
-    
-    menu.addEventListener('mouseout', () => {
-        menu.style.background='';
-        menu.style.boxShadow='';
-    })
-}
+registerLink.addEventListener('click', ()=> {
+    wrapper.classList.add('active');
+})
 
-//handleMenu();
+loginLink.addEventListener('click', ()=> {
+    wrapper.classList.remove('active');
+})
+
+btnPopup.addEventListener('click', ()=> {
+    wrapper.classList.add('active-popup');
+})
+
+iconClose.addEventListener('click', ()=> {
+    wrapper.classList.remove('active-popup');
+})

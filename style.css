@@ -8,6 +8,7 @@
     --text-color: white;
     --color-1: rgb(255, 150, 0);
     --color-2: rgb(187, 0, 255);
+    overflow: hidden;
 }
 
 body {
@@ -187,19 +188,23 @@ svg path {
 }
 
 .menuButton .btn {
+    aspect-ratio: 2/1;
     display: inline-block;
     text-align: center;
     text-decoration: none;
+    margin-right: 25px;
+    font-size: 3vw;
     opacity: 0;
-    width: 100px;
-    padding: 45px;
+    /*width: 200px;*/
+    width: clamp(100px, 80%, 200px);
+    padding: 5px;
     color: var(--text-color);
     overflow: hidden;
-    letter-spacing: 5px;
-    font-weight: bold;
+    letter-spacing: 2px;
     border: none;
     transform: translateZ(50px);
     box-shadow: 0 0 10px white;
+    background: none;
     backdrop-filter: blur(10px);
     transition: .2s ease-in-out;
 }
@@ -231,7 +236,7 @@ body:has(.centerMenu:hover) #buttonLogout {
     box-shadow: 0 0 10px var(--color-1),
                 0 0 50px var(--color-1),
                 0 0 100px var(--color-1);
-    -webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-1));
+    /*-webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-1));*/
     background: var(--color-1);
 }
 
@@ -241,7 +246,7 @@ body:has(.centerMenu:hover) #buttonLogout {
     box-shadow: 0 0 10px var(--color-2),
                 0 0 50px var(--color-2),
                 0 0 100px var(--color-2);
-    -webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-2));
+    /*-webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-2));*/
 }
 
 #buttonStart:active, #buttonOptions:active, #buttonProfile:active {
@@ -250,7 +255,7 @@ body:has(.centerMenu:hover) #buttonLogout {
     box-shadow: 0 0 10px var(--color-2),
                 0 0 50px var(--color-2),
                 0 0 100px var(--color-2);
-    -webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-2));
+    /*-webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-2));*/
 }
 
 .menuButton .btn:hover {
@@ -258,27 +263,28 @@ body:has(.centerMenu:hover) #buttonLogout {
     box-shadow: 0 0 10px var(--color-1),
                 0 0 50px var(--color-1),
                 0 0 100px var(--color-1);
-    -webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-1));
+    /*-webkit-box-reflect: below 0px linear-gradient(transparent, var(--color-1));*/
     background: var(--color-1);
+    font-weight: bold;
 }
 
 .menuButton .btn:hover + * {
-    transform: translateZ(75px) rotateY(40deg);
+    /*transform: translateZ(75px) rotateY(40deg);*/
     filter: brightness(.5);
 }
 
 .menuButton .btn:hover + * + * {
-    transform: translateZ(50px) rotateY(20deg);
+    /*transform: translateZ(50px) rotateY(20deg);*/
     filter: brightness(.2);
 }
 
 .menuButton .btn:has(+ *:hover) {
-    transform: translateZ(75px) rotateY(-40deg);
+    /*transform: translateZ(75px) rotateY(-40deg);*/
     filter: brightness(.5);
 }
 
 .menuButton .btn:has(+ * + *:hover) {
-    transform: translateZ(50px) rotateY(-20deg);
+    /*transform: translateZ(50px) rotateY(-20deg);*/
     filter: brightness(.2);
 }
 
